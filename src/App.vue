@@ -24,9 +24,8 @@
         </nav>
       </div>
       <div class="row">
-        <div class="col-2 mt-5">
-          <div class="row p-2 alert alert-secondary">
-            <router-link to="/" class="col-12">
+        <div class="col-2 row p-2 bg-dark navbar-fixed-left">
+            <router-link   to="/" class="col-12">
               <b-button block pill class="p-2 m-1" variant="primary">Home</b-button>
             </router-link>
             <div class="col-12">
@@ -39,7 +38,6 @@
             <router-link to="/historico" class="col-12">
               <b-button block pill class="p-2 m-1" variant="primary">Historico</b-button>
             </router-link>
-          </div>
         </div>
         <div class="col-10">
           <router-view />
@@ -57,6 +55,30 @@
       </div>
   </div>
 </template>
+
+
+<script>
+
+export default {
+  name: "App",
+  components: {},  
+  data() {
+    return {
+        isReporteActive: this.$router.currentRoute.path == '/reporte',
+        isHistoricoActive: this.$router.currentRoute.path == '/historico',
+    }
+  },
+  methods: {
+    toggleColors: function(active, path){
+      console.log(active);
+      console.log(path);
+      console.log(this.$router.currentRoute.path == '/' + path);
+      return active = this.$router.currentRoute.path == '/' + path;
+    }
+  }
+};
+</script>
+
 
 <style>
 #app {
@@ -78,5 +100,12 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.navbar-fixed-left {
+  width: 140px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
 }
 </style>
