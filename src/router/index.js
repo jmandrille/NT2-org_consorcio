@@ -5,6 +5,7 @@ import Perfil from "../views/Perfil.vue";
 import Tareas from "../views/Tareas.vue";
 import Reporte from "../views/Reporte.vue";
 import Historico from "../views/Historico.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/tareas",
     name: "Tareas",
     component: Tareas
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
   }
   // {
   //   path: "/about",

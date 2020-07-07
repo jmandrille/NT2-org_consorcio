@@ -3,22 +3,25 @@
     <div class="row">
       <div class="navbar navbar-expand-lg navbar-light col-12">
         <div class="container col-12">
-          <b-form-input
-            class="col-2"
-            type="text"
-            placeholder="Escriba un titulo para buscar..."
-            v-model="searchParameters.name"
-            @keypress="filterName"
-            @keyup="filterName"
-            @click="filterName"
-          ></b-form-input>
+          <div class="col-4">
+            <b-form-input
+              class="col-6"
+              type="text"
+              placeholder="Escriba un titulo para buscar..."
+              v-model="searchParameters.name"
+              @input="filterName"
+              @click="filterName"
+            >
+            </b-form-input>
+            <b-spinner v-show="loadingFilterName" label="Spinning"></b-spinner>
+          </div>
           <div class="col-3">
             <label class="col-6">Filtro por categorias:</label>
             <b-form-select
               class="col-6"
               v-model="searchParameters.category"
               :options="categories"
-              @change="filterAll"
+              @change="filterCategories"
             >
             </b-form-select>
           </div>
@@ -188,6 +191,7 @@ export default {
         { value: "seguridad", text: "Seguridad", color:"success"},
         { value: "mantenimiento", text: "Mantenimiento", color:"warning"}
       ],
+      loadingFilterName:false,
       itemsSolicitados: [],
       itemsEnProceso: [],
       itemsFinalizados: []
@@ -218,7 +222,7 @@ export default {
       await this.addTask();
     },
     async addTask(){
-      const form = this.form;
+      let form = this.form;
       console.log(form);
       this.validationResult={
         validCategory: !this.isNullOrEmpty(form.category),
@@ -229,6 +233,7 @@ export default {
         this.validationResult.validDetail &&
         this.validationResult.validName;
       if(valid) {
+        form.ownerID=this.$cookies.get("user")._id;
         const respuesta = await axios.post("/tasks", form);
         if(respuesta.status==200){
           this.hideModal();
@@ -243,7 +248,6 @@ export default {
       if(event.added != null){
         const element = added.element;
         const state = this.decideState(added.element._id);
-        console.log(state);
         element.state=state;
         const respuesta = await axios.patch("/tasks/"+element._id, element);
         console.log(respuesta);
@@ -258,21 +262,42 @@ export default {
       }
       return state;
     },
-    filterName(){
-      if (this.timer) {
+    async filterName(){
+      this.loadingFilterName=true;
+      if (this.timer!=null) {
         clearTimeout(this.timer);
         this.timer = null;
       }
-      this.timer = setTimeout(() => {
-        if(this.isNullOrEmpty(this.searchParameters.name)){
-          this.searchParameters = new TaskSearchParameters();
-          this.filterAll();
-        }
+      this.timer = setTimeout(async () => {
         const name = this.searchParameters.name;
-        this.itemsSolicitados = this.itemsSolicitados.filter(item => this.textIncluded(item.name, name));
-        this.itemsEnProceso = this.itemsEnProceso.filter(item => this.textIncluded(item.name, name));
-        this.itemsFinalizados = this.itemsFinalizados.filter(item => this.textIncluded(item.name, name));
-      }, 100);
+        this.searchParameters = new TaskSearchParameters();
+        await this.filterAll();
+        this.searchParameters.name=name;
+        if(!this.isNullOrEmpty(this.searchParameters.name)){
+          console.log(this.itemsSolicitados)
+          console.log(name)
+          this.loadingFilterName=!this.isNullOrEmpty(name);
+          this.itemsSolicitados = this.itemsSolicitados.filter(item => this.textIncluded(item.name, name));
+          this.itemsEnProceso = this.itemsEnProceso.filter(item => this.textIncluded(item.name, name));
+          this.itemsFinalizados = this.itemsFinalizados.filter(item => this.textIncluded(item.name, name));
+        }else{
+          this.searchParameters = new TaskSearchParameters();
+        }
+        this.loadingFilterName=false;
+
+      }, 800);
+    },
+    async filterCategories(){
+      if(!this.isNullOrEmpty(this.searchParameters.name)){
+        await this.filterName();
+        const name = this.searchParameters.name;
+        //const name = this.searchParameters.name;
+        this.searchParameters = new TaskSearchParameters();
+        await this.filterAll();
+        this.searchParameters.name=name;
+      }else{
+        await this.filterAll();
+      }
     },
     hideModal() {
       this.$nextTick(() => {
@@ -280,10 +305,11 @@ export default {
       })
     },
     isNullOrEmpty(text) {
-      return !text || !text.trim();
+      console.log(!text || !text.trim());
+      return !text || !text.trim() || text=="";
     },
     textIncluded(text1, text2){
-      return text1.includes(text2);
+      return text1.toLowerCase().includes(text2.toLowerCase());
     },
     irAHistorico: function() {
       this.$router.push({ name: "Historico" });

@@ -28,15 +28,15 @@
           </button>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+              <li class="nav-item" v-if="show">
                 <router-link class="nav-link" to="/">Home</router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="show">
                 <router-link class="nav-link" to="/reporte"
                   >Reporte</router-link
                 >
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="show">
                 <router-link class="nav-link" to="/historico"
                   >Historico</router-link
                 >
@@ -45,22 +45,38 @@
           </div>
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <router-link class="nav-link" to="/usuario"
-                  >Usuario</router-link
-                >
+              <li class="nav-item" v-if="!show">
+                <router-link class="nav-link" to="/login">Login</router-link>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/encargado"
-                  >Encargado</router-link
-                >
+              <li class="nav-item" v-if="show">
+                <router-link class="nav-link" to="/usuario">{{username}}</router-link>
               </li>
+              <!-- <li class="nav-item">
+                <router-link class="nav-link" to="/encargado">Encargado</router-link>
+              </li> -->
             </ul>
           </div>
         </div>
       </nav>
     </div>
     <div class="col-12">
+      <div class="row">
+        <b-alert
+        :show="dismissCountDown"
+        dismissible
+        variant="warning"
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+        >
+        <p>Su sesión expiró, será redirigido al login en {{ dismissCountDown }} segundos...</p>
+        <b-progress
+          variant="warning"
+          :max="dismissSecs"
+          :value="dismissCountDown"
+          height="4px"
+        ></b-progress>
+        </b-alert>
+      </div>
       <router-view />
     </div>
     <div class="row">
@@ -82,16 +98,40 @@ export default {
   components: {},
   data() {
     return {
-      isReporteActive: this.$router.currentRoute.path == "/reporte",
-      isHistoricoActive: this.$router.currentRoute.path == "/historico"
+      show:false,
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showLoginAlert: false,
+      username: this.$cookies.get("user") != null ? this.$cookies.get("user").name : null,
     };
+  },
+  watch:{
+    $route(){
+      this.show=this.$cookies.get("user") != null
+      if(this.$cookies.get("user") == null) {
+        this.showAlert();
+        setTimeout(function(){
+          this.location.href = '/login';
+        }, this.dismissSecs*1000);
+      }else{
+        this.username = this.$cookies.get("user").name;
+      }
+    }
   },
   methods: {
     toggleColors: function(active, path) {
-      console.log(active);
-      console.log(path);
-      console.log(this.$router.currentRoute.path == "/" + path);
       return (active = this.$router.currentRoute.path == "/" + path);
+    },
+    changeName(){
+      console.log(this.$cookies.get("user"));
+
+    },
+
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 };
