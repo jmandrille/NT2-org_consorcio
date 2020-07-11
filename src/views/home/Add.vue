@@ -71,6 +71,11 @@ import Categories from "../models/Categories";
 
 export default {
     name:"add",
+    props:['filter','itemsSolicitados'],
+    mounted() {
+        this.filter(),
+        this.itemsSolicitados
+    },
     data(){
         return {
             form: new TaskForm(),
@@ -95,6 +100,7 @@ export default {
                         this.validationResult.validName;
             if(valid) {
                 form.ownerID=this.$cookies.get("user")._id;
+                form.assignedUserID = 0;
                 const respuesta = await axios.post("/tasks", form);
                 if(respuesta.status==200){
                     this.hideModal();

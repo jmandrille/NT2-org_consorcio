@@ -22,7 +22,7 @@
             </b-form-select>
         </b-form-group>
         <b-form-group label="Limpiar" label-for="clear-parameters">
-            <b-button id="clear-parameters" @click="clear"><b-badge>X</b-badge></b-button>
+            <b-button id="clear-parameters" @click="clear"><b-icon-x-circle></b-icon-x-circle></b-button>
         </b-form-group>
     </div>
 </template>
