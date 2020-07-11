@@ -4,6 +4,7 @@ class TaskForm{
         this.detail=null;
         this.category = null;
         this.state="SOLICITADO";
+        this.creationDate = null;
     }
 }
 

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "../views/home/Home.vue";
 import Perfil from "../views/Perfil.vue";
 import Tareas from "../views/Tareas.vue";
 import Reporte from "../views/Reporte.vue";

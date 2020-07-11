@@ -98,11 +98,11 @@ export default {
   components: {},
   data() {
     return {
-      show:false,
+      show:this.$cookies.get("user") != null,
       dismissSecs: 3,
       dismissCountDown: 0,
       showLoginAlert: false,
-      username: this.$cookies.get("user") != null ? this.$cookies.get("user").name : null,
+      username: this.$cookies.get("user") ? this.$cookies.get("user").name : null,
     };
   },
   watch:{
