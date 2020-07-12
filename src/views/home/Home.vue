@@ -17,6 +17,13 @@
         <column :items="itemsFinalizados" title="Finalizados" :getTasks="getTasks" :filter="filter" :resolveState="resolveState"></column>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <b-badge class="mr-2" variant="primary">Limpieza</b-badge>
+        <b-badge class="mr-2" variant="success">Seguridad</b-badge>
+        <b-badge variant="warning">Mantenimiento</b-badge>
+      </div>
+    </div>
   </div>
 </template>
 
