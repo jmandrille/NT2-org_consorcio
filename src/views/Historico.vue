@@ -37,8 +37,8 @@
         }));
         this.historics = list;
       },
-      parseMoment(element){
-        return moment(element.creationDate).fromNow();
+      parseMoment(value){
+        return moment(value).fromNow();
       },
     }
   }
