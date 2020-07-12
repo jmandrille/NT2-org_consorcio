@@ -2,7 +2,7 @@
 
 ## Requirements
 ```
-Have [this](https://github.com/nicok93/tp2-consortium-backend) application running locally 
+Have [this](https://www.google.com) application running locally 
 ```
 
 ## Project setup
