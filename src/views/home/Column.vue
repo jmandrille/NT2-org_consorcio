@@ -10,8 +10,8 @@
         >
         <div class="list-group-item mt-2" v-for="element in items" :key="element.name">
             <div class="col-12">
-                <b-badge class="col-3 float-left">Creado por: {{findUserNameByID(element.ownerID)}}</b-badge>
-                <b-badge class="col-3 float-right">{{parseMoment(element)}}</b-badge>
+                <b-badge class="col-4 float-left">Creado por: {{findUserNameByID(element.ownerID)}}</b-badge>
+                <b-badge class="col-4 float-right">{{parseMoment(element.creationDate)}}</b-badge>
             </div>
             <b-button size="lg" class="mt-4" v-b-toggle="'collapse-solicitados-'+ element._id" :variant="categories.filter(item=>item.value==element.category)[0].color">{{element.name}}</b-button>
             <b-collapse :id="'collapse-solicitados-'+ element._id" class="mt-2">
@@ -30,6 +30,7 @@ import draggable from 'vuedraggable'
 import moment from "moment";
 import Options from '../models/Options';
 import axios from "axios";
+import cron from 'node-cron'
 moment.locale('es')
 
 export default {
@@ -47,6 +48,7 @@ export default {
     async created() {
         try {
             this.initUserOptions();
+            this.checkDate();
         } catch (error) {
             console.log("ERROR", error)
         }
@@ -60,6 +62,11 @@ export default {
         this.resolveState()
     },
     methods:{
+        checkDate(){
+            cron.schedule('* * * * *', () => {
+                this.filter();
+            });
+        },
         async changeState(event){
             const added = event.added;
             if(added != null){
@@ -79,8 +86,8 @@ export default {
                 }
             } 
         },
-        parseMoment(element){
-            return moment(element.creationDate).fromNow();
+        parseMoment(date){
+            return moment(date).fromNow();
         },
         validateChangeState(currentState, changingState, assignedUserID){
             let valid = currentState != changingState;

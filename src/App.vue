@@ -80,8 +80,8 @@
       <router-view />
     </div>
     <div class="row">
-      <footer id="footer" class="pb-4 pt-4">
-        <div class="container fixed-bottom">
+      <footer id="footer" class="pb-4 pt-4 col-12">
+        <div class="container">
           <div class="text-center align-items-center">
             <h6>© TheConsortium4 - 2020</h6>
             <small>- Todos los derechos reservados -</small>

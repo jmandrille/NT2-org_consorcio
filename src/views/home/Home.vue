@@ -50,6 +50,7 @@ export default {
   async created() {
     try {
       this.filter();
+      
     } catch (error) {
       console.log("ERROR", error)
     }
