@@ -42,7 +42,7 @@ export default {
         return{
             categories: Options.categories,
             isInCharge: this.$cookies.get("user").role=="ENCARGADO",
-            users: [],
+            users: []
         }
     },
     async created() {
@@ -111,6 +111,8 @@ export default {
         },
         findUserNameByID(id){
             let name = null;
+            console.log(id);
+            console.log(this.users)
             const filter = this.users.filter(user => user.value == id.toString());
             if(filter.length > 0){
                 name = filter[0].text;
@@ -121,11 +123,9 @@ export default {
             const users = await this.getUsers({});
             let opciones = [{value: 0, text:"Sin asignación"}];
             const userLoggedIn = this.$cookies.get("user") != null ? this.$cookies.get("user").name : null;
-            users.forEach(user => {
-                if(user.name!= userLoggedIn){
-                    opciones.push({value: user._id.toString(), text:user.name});
-                }
-            });
+            users.forEach(user => {opciones.push(
+                {value: user._id.toString(), text:user.name, disabled: user.name == userLoggedIn}
+            );});
             this.users = opciones;
         },
         async getUsers(searchParameters){
