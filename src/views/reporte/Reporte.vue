@@ -1,9 +1,13 @@
 <template>
-  <div class="reporte">
-    <h1>Por estado</h1>
-    <chart v-if="ready" :chart-data="stateChartData" :options="options"></chart>
-    <h1 class="mt-5">Por categoria</h1>
-    <chart v-if="ready" :chart-data="categoryChartData" :options="options"></chart>
+  <div class="reporte col-12">
+    <div class="col-6 float-left">
+      <h1>Por estado</h1>
+      <chart v-if="ready" :chart-data="stateChartData" :options="options"></chart>
+    </div>
+    <div class="col-6 float-right">
+      <h1>Por categoria</h1>
+      <chart v-if="ready" :chart-data="categoryChartData" :options="options"></chart>
+    </div>
   </div>
 </template>
 

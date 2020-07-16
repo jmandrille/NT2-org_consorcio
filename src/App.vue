@@ -79,8 +79,8 @@
       </div>
       <router-view />
     </div>
-    <div class="row">
-      <footer id="footer" class="pb-4 pt-4 col-12">
+    <div class="row align-items-end">
+      <footer id="footer" class="pb-4 pt-4 col-12 super-margin">
         <div class="container">
           <div class="text-center align-items-center">
             <h6>© TheConsortium4 - 2020</h6>
@@ -88,6 +88,9 @@
           </div>
         </div>
       </footer>
+      <div>
+
+      </div>
     </div>
   </div>
 </template>
@@ -159,5 +162,17 @@ export default {
   position: fixed;
   border-radius: 0;
   height: 100%;
+}
+
+.fluid-container.footer{
+  background: blue;
+}
+.fluid-container.footer > *:last-child {
+    margin-bottom: 0px;
+    color: #fff;
+}
+
+.super-margin {
+  margin-top: 150px;
 }
 </style>

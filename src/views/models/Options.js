@@ -7,8 +7,8 @@ export default{
     ],
     actions: [
         { value:null, text:"Todos"},
-        { value:"Creación", text:"Creaciones"},
-        { value:"Edición", text:"Ediciones"},
-        { value:"Eliminación", text:"Eliminaciones"},
+        { value:"Crear", text:"Creaciones"},
+        { value:"Editar", text:"Ediciones"},
+        { value:"Eliminar", text:"Eliminaciones"},
     ]
 }

@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import UserForm from "./models/UserForm";
-import UserValidationResult from "./models/UserValidationResult";
+import UserForm from "../models/UserForm";
+import UserValidationResult from "../models/UserValidationResult";
 import axios from "axios";
   export default {
     data() {

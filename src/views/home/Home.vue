@@ -27,9 +27,9 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <b-badge class="mr-2" variant="primary">Limpieza</b-badge>
-        <b-badge class="mr-2" variant="success">Seguridad</b-badge>
-        <b-badge variant="warning">Mantenimiento</b-badge>
+        <b-badge class="mr-2" variant="primary">Limpieza: 10</b-badge>
+        <b-badge class="mr-2" variant="success">Seguridad: 30</b-badge>
+        <b-badge variant="warning">Mantenimiento: 50</b-badge>
       </div>
     </div>
   </div>
