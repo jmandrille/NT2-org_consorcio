@@ -54,6 +54,9 @@
               <!-- <li class="nav-item">
                 <router-link class="nav-link" to="/encargado">Encargado</router-link>
               </li> -->
+                <b-button v-if="show" @click="logout" variant="outline-info" class="mb-2">
+                  <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+                </b-button>
             </ul>
           </div>
         </div>
@@ -130,6 +133,10 @@ export default {
     },
     showAlert() {
       this.dismissCountDown = this.dismissSecs
+    },
+    logout(){
+      this.$cookies.remove("user");
+      window.location.reload()
     }
   }
 };
