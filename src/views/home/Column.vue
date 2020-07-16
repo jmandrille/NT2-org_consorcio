@@ -60,7 +60,6 @@ export default {
     },
     methods:{
         async changeState(event){
-            console.log(event);
             const added = event.added;
             if(added != null){
                 const element = added.element;
@@ -69,7 +68,6 @@ export default {
                 const currentState = tasks[0].state;
                 const state = this.resolveState(id);
                 const valid = this.validateChangeState(currentState, state, element.assignedUserID);
-                console.log(valid)
                 if(valid){
                     element.state=state;
                     this.edit(element);

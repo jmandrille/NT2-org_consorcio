@@ -52,7 +52,6 @@
                     this.$router.push('/login');
                 }
                 const searchParameters = {assignedUserID: this.$cookies.get("user")._id};
-                console.log(searchParameters);
                 const respuesta = await axios.get("/tasks",{params: searchParameters});
                 const finalizados = respuesta.data.filter(value => value.state=="FINALIZADO");
                 let puntos = 0;

@@ -66,7 +66,6 @@ import axios from "axios";
                     this.$router.push('/');
                 }).catch(error => 
                 {   
-                    console.log(error.response);
                     const errorCode = error.response.data.code;
                     if(errorCode == 0){
                         this.validationResult.validName=false

@@ -32,9 +32,7 @@
     methods:{
       async initChartData(){
         const userId = this.$cookies.get("user")._id;
-        console.log(userId);
         const result = await axios.get("/tasks",{params:{assignedUserId: userId}});
-        console.log(result);
         const totalTasks = result.data;
         const solicitadas = this.filterState(totalTasks,"SOLICITADO");
         const enProceso = this.filterState(totalTasks, "EN PROCESO"); 

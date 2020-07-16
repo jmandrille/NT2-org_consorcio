@@ -36,7 +36,6 @@
       },
       async initHistoric(){
         const result = await axios.get("/historics");
-        console.log(result.data);
         this.historics = this.createHistoricList(result.data);
       },
       createHistoricList(originalList){
