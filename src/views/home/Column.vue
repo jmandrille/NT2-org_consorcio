@@ -16,7 +16,7 @@
             <b-button size="lg" class="mt-4" v-b-toggle="'collapse-solicitados-'+ element._id" :variant="categories.filter(item=>item.value==element.category)[0].color">{{element.name}}</b-button>
             <b-collapse :id="'collapse-solicitados-'+ element._id" class="mt-2">
             <b-card :title="element.detail" >
-                <b-form-select class="col-5 float-left" v-model="element.assignedUserID" :options="users" @change="edit(element)"></b-form-select>
+                <b-form-select :disabled="element.state != 'SOLICITADO'" class="col-5 float-left" v-model="element.assignedUserID" :options="users" @change="edit(element)"></b-form-select>
                 <b-button @click="askForRemove(element._id,element.name)" v-show="isInCharge" variant="danger" class="col-2 float-right"><b-icon icon="trash-fill" aria-hidden="true"></b-icon></b-button>
             </b-card>
             </b-collapse>
@@ -120,7 +120,12 @@ export default {
         async initUserOptions(){
             const users = await this.getUsers({});
             let opciones = [{value: 0, text:"Sin asignación"}];
-            users.forEach(user => {opciones.push({value: user._id.toString(), text:user.name})});
+            const userLoggedIn = this.$cookies.get("user") != null ? this.$cookies.get("user").name : null;
+            users.forEach(user => {
+                if(user.name!= userLoggedIn){
+                    opciones.push({value: user._id.toString(), text:user.name});
+                }
+            });
             this.users = opciones;
         },
         async getUsers(searchParameters){
