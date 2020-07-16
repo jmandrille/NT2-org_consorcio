@@ -20,7 +20,11 @@ Vue.use(Vuex)
 axios.defaults.baseURL = 'http://localhost:3000/'
 
 axios.interceptors.request.use(config => {
-  if(!router.currentRoute.path.includes("login") && VueCookies.get("user") == null) {
+  const user =VueCookies.get("user");
+  if(user != null){
+    config.headers.username=user.name;
+  }
+  if(!router.currentRoute.path.includes("login") && user == null) {
         router.push("/error");
         return Promise.reject;
   }
