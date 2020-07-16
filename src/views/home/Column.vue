@@ -73,6 +73,7 @@ export default {
                 if(valid){
                     element.state=state;
                     this.edit(element);
+
                 } else {
                     const modal = this.showConfirmationModal('No se puede mover la tarea en esa dirección. Verificar también si ha sido asignada.', 'Error','OK', 'Cancelar')
                     modal.then(value => {console.log(value);this.filter()});
@@ -124,7 +125,6 @@ export default {
             })
         },
         async edit(element){
-            console.log("pasa")
             return await axios.patch("/tasks/"+element._id, element);
         },
         async remove(id){
