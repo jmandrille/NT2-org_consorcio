@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/home/Home.vue";
 import Perfil from "../views/Perfil.vue";
 import Tareas from "../views/Tareas.vue";
-import Reporte from "../views/Reporte.vue";
+import Reporte from "../views/reporte/Reporte.vue";
 import Historico from "../views/Historico.vue";
 import Login from "../views/Login.vue";
 

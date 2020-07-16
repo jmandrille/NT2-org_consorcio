@@ -125,6 +125,7 @@ export default {
             })
         },
         async edit(element){
+
             return await axios.patch("/tasks/"+element._id, element);
         },
         async remove(id){
