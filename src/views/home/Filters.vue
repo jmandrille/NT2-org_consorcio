@@ -29,7 +29,7 @@
 
 <script>
 import TaskSearchParameters from "../models/TaskSearchParameters";
-import Categories from '../models/Categories';
+import Options from '../models/Options';
 
 export default {
     name: "filters",
@@ -37,7 +37,7 @@ export default {
         return {
             searchParameters: new TaskSearchParameters(),
             loadingFilterName:false,
-            categories: Categories.categories,
+            categories: Options.categories,
             itemsSolicitados: [],
             itemsEnProceso: [],
             itemsFinalizados: []

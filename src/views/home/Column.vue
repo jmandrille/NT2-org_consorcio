@@ -27,7 +27,7 @@
 <script>
 import draggable from 'vuedraggable'
 import moment from "moment";
-import Categories from '../models/Categories';
+import Options from '../models/Options';
 import axios from "axios";
 moment.locale('es')
 
@@ -38,7 +38,7 @@ export default {
     },
     data(){
         return{
-            categories: Categories.categories,
+            categories: Options.categories,
             isInCharge: this.$cookies.get("user").role=="ENCARGADO",
             users: [],
         }

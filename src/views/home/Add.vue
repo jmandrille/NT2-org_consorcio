@@ -67,7 +67,7 @@ import TaskForm from "../models/TaskForm";
 import validationResult from "../models/ValidationResult";
 import axios from "axios";
 import TaskSearchParameters from "../models/TaskSearchParameters";
-import Categories from "../models/Categories";
+import Options from "../models/Options";
 
 export default {
     name:"add",
@@ -80,7 +80,7 @@ export default {
         return {
             form: new TaskForm(),
             validationResult: new validationResult(),
-            categories: Categories.categories
+            categories: Options.categories
         }
     },
     methods:{
