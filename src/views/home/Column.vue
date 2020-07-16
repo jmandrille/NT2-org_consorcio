@@ -9,12 +9,13 @@
         @change="changeState"
         >
         <div class="list-group-item mt-2" v-for="element in items" :key="element.name">
-            <div class="col-3">
-            <b-badge>{{parseMoment(element)}}</b-badge>
+            <div class="col-12">
+                <b-badge class="col-3 float-left">Creado por: {{findUserNameByID(element.ownerID)}}</b-badge>
+                <b-badge class="col-3 float-right">{{parseMoment(element)}}</b-badge>
             </div>
-            <b-button v-b-toggle="'collapse-solicitados-'+ element._id" :variant="categories.filter(item=>item.value==element.category)[0].color">{{element.name}}</b-button>
+            <b-button size="lg" class="mt-4" v-b-toggle="'collapse-solicitados-'+ element._id" :variant="categories.filter(item=>item.value==element.category)[0].color">{{element.name}}</b-button>
             <b-collapse :id="'collapse-solicitados-'+ element._id" class="mt-2">
-            <b-card :title="element.name" :sub-title="element.detail">
+            <b-card :title="element.detail" >
                 <b-form-select class="col-5 float-left" v-model="element.assignedUserID" :options="users" @change="edit(element)"></b-form-select>
                 <b-button @click="askForRemove(element._id,element.name)" v-show="isInCharge" variant="danger" class="col-2 float-right"><b-icon icon="trash-fill" aria-hidden="true"></b-icon></b-button>
             </b-card>
@@ -101,6 +102,14 @@ export default {
                 centered: true
             })
         },
+        findUserNameByID(id){
+            let name = null;
+            const filter = this.users.filter(user => user.value == id.toString());
+            if(filter.length > 0){
+                name = filter[0].text;
+            }
+            return name;
+        },
         async initUserOptions(){
             const users = await this.getUsers({});
             let opciones = [{value: 0, text:"Sin asignación"}];
@@ -111,6 +120,7 @@ export default {
             const respuesta = await axios.get("/users",{params: searchParameters});
             return respuesta.data; 
         },
+        
         async askForRemove(id, name){
             const modal = this.showConfirmationModal('¿Desea eliminar la tarea ' + name + '?', 'Confirmar eliminación', 'Si','No')
             modal.then(async remove => {
