@@ -1,5 +1,9 @@
 # org-consorcio
 
+## Requirements
+```Have ```[this](https://github.com/nicok93/tp2-consortium-backend)``` application running locally```
+
+
 ## Project setup
 ```
 npm install
@@ -8,16 +12,6 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
