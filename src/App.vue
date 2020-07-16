@@ -122,11 +122,6 @@ export default {
     toggleColors: function(active, path) {
       return (active = this.$router.currentRoute.path == "/" + path);
     },
-    changeName(){
-      console.log(this.$cookies.get("user"));
-
-    },
-
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown
     },
