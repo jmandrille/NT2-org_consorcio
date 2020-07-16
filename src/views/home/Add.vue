@@ -67,15 +67,20 @@ import TaskForm from "../models/TaskForm";
 import validationResult from "../models/ValidationResult";
 import axios from "axios";
 import TaskSearchParameters from "../models/TaskSearchParameters";
-import Categories from "../models/Categories";
+import Options from "../models/Options";
 
 export default {
     name:"add",
+    props:['filter','itemsSolicitados'],
+    mounted() {
+        this.filter(),
+        this.itemsSolicitados
+    },
     data(){
         return {
             form: new TaskForm(),
             validationResult: new validationResult(),
-            categories: Categories.categories
+            categories: Options.categories
         }
     },
     methods:{
@@ -95,6 +100,7 @@ export default {
                         this.validationResult.validName;
             if(valid) {
                 form.ownerID=this.$cookies.get("user")._id;
+                form.assignedUserID = 0;
                 const respuesta = await axios.post("/tasks", form);
                 if(respuesta.status==200){
                     this.hideModal();

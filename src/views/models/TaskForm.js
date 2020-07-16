@@ -5,6 +5,7 @@ class TaskForm{
         this.category = null;
         this.state="SOLICITADO";
         this.creationDate = null;
+        this.assignedUserID = null;
     }
 }
 
