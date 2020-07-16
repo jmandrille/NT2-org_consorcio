@@ -6,6 +6,7 @@ import Tareas from "../views/Tareas.vue";
 import Reporte from "../views/reporte/Reporte.vue";
 import Historico from "../views/historico/Historico.vue";
 import Login from "../views/Login.vue";
+import Usuario from "../views/Usuario.vue";
 
 Vue.use(VueRouter);
 
@@ -39,16 +40,12 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/usuario",
+    name: "Usuario",
+    component: Usuario
   }
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({
